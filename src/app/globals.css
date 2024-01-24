@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-secondary;
+}
+
+.custom-grid {
+  @apply h-screen;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 30fr;
+}
+
+.d {
+  grid-column: 2/-1;
+}
+
+.navigation {
+  scrollbar-width: none;
+  grid-row: 2;
+}
+
+.navigation::-webkit-scrollbar {
+  width: 0px;
+}
+
+.main-wrapper {
+  @apply bg-secondary w-full h-full overflow-y-scroll navigation relative;
+}
+
+.main-body::-webkit-scrollbar {
+  width: 0.6rem;
+}
+.main-body::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-xl;
+}
+
+.textarea::-webkit-scrollbar {
+  width: 0;
+}
+
+.date input {
+  @apply w-full px-4 py-2 rounded-lg bg-inherit border border-gray-600 text-gray-300 focus:outline-none;
+
+  &:focus {
+    @apply outline-none;
+  }
+}

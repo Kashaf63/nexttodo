@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  lists     List[]
+}
+
+model List {
+  id     Int        @id @default(autoincrement())
+  name   String     @unique
+  userId Int
+  user   User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  files  ListFile[]
+}
+
+model ListFile {
+  id     Int    @id @default(autoincrement())
+  name   String @unique
+  listId Int
+  list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
+  todos  Todo[]
+}
+
+model Todo {
+  id           Int      @id @default(autoincrement())
+  listfileId   Int
+  content      String
+  completed    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  listFile     ListFile @relation(fields: [listfileId], references: [id], onDelete: Cascade)
+  targetedTime String?
+  color        String?  @default("bg-primary/50")
+}
